@@ -40,10 +40,6 @@ import { API_PREFIX } from "./constant";
 import { errorHandler } from "./middlewares/error.middleware";
 import { taskRouter } from "./routes/task-management/task.routes";
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("API is running....");
-});
-
 // Using Routes
 app.use(`${API_PREFIX}/auth`, authRouter);
 

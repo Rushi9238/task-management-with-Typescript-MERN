@@ -9,7 +9,7 @@ const port = process.env.PORT || 3044;
 
 connectDB()
   .then(async () => {
-    await createDefaultAdmin();
+    // await createDefaultAdmin();
     app.listen(port, () => {
       console.log(`Server is running on port ${port}`);
     });

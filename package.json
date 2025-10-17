@@ -2,13 +2,13 @@
   "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
- "scripts": {
+  "type": "commonjs",
+  "scripts": {
+    "dev": "nodemon --watch src --exec ts-node src/index.ts",
+    "build": "npm run build:backend && npm run build:frontend",
     "build:backend": "tsc",
     "build:frontend": "cd frontend && npm install && npm run build",
-    "build": "npm run build:backend && npm run build:frontend",
-    "start": "node dist/index.js",
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
