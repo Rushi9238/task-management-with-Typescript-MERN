@@ -10,7 +10,7 @@ export default defineConfig({
    server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3044',
+        target: 'https://task-management-i91p.onrender.com',
         changeOrigin: true,
       },
     },
