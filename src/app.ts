@@ -46,26 +46,21 @@ app.use(`${API_PREFIX}/auth`, authRouter);
 // task management
 app.use(`${API_PREFIX}/tasks`,taskRouter)
 
+const frontendPath = path.join(process.cwd(), "frontend/dist");
+
 // Serve frontend in production
-if (process.env.NODE_ENV === "production") {
-  // Serve static files from frontend/dist
-   const frontendPath = path.join(process.cwd(), "frontend/dist");
-  
+if (process.env.NODE_ENV !== "test") {
+  // Serve React build if it exists
   app.use(express.static(frontendPath));
-  
-  // Handle all GET requests that aren't for the API
- app.get(/(.*)/, (req: Request, res: Response, next: NextFunction) => {
-  // Skip API routes
-  if (req.path.startsWith("/api")) {
-    return next();
-  }
-  console.log("Serving index.html for route:", req.url);
-  res.sendFile(path.join(frontendPath, "index.html"));
-});
+
+  app.get(/(.*)/, (req: Request, res: Response, next: NextFunction) => {
+    if (req.path.startsWith("/api")) return next();
+    res.sendFile(path.join(frontendPath, "index.html"));
+  });
 } else {
-  // In development
+  // For tests only
   app.get("/", (req: Request, res: Response) => {
-    res.json({ message: "Server is running in development mode" });
+    res.json({ message: "Server is running in test mode" });
   });
 }
 
