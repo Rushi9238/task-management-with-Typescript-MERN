@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #3b82f6;        /* Blue-500 */
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #10b981;      /* Green-500 */
+  --color-secondary-foreground: #ffffff;
+   --foreground: 220 13% 18%;
+}
+.dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+}
