@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
-  "scripts": {
-  "dev": "nodemon --watch src --exec ts-node src/index.ts",
-  "build": "npm run build:backend && npm run build:frontend",
-  "build:backend": "tsc",
-  "build:frontend": "cd frontend && npm install && npm run build",
-  "start": "node dist/index.js"
-},
+ "scripts": {
+    "build:backend": "tsc",
+    "build:frontend": "cd frontend && npm install && npm run build",
+    "build": "npm run build:backend && npm run build:frontend",
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -33,7 +33,7 @@
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/multer": "^2.0.0",
-    "@types/node": "^24.7.2",
+    "@types/node": "^24.8.1",
     "eslint": "^9.37.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",

@@ -1,5 +1,5 @@
 import cookieParser from "cookie-parser";
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from 'url';
@@ -46,7 +46,6 @@ app.get("/", (req: Request, res: Response) => {
 
 // Using Routes
 app.use(`${API_PREFIX}/auth`, authRouter);
-app.use(`${API_PREFIX}/auth`, authRouter);
 
 // task management
 app.use(`${API_PREFIX}/tasks`,taskRouter)
@@ -54,26 +53,28 @@ app.use(`${API_PREFIX}/tasks`,taskRouter)
 // Serve frontend in production
 if (process.env.NODE_ENV === "production") {
   // Serve static files from frontend/dist
-  app.use(express.static(path.join(process.cwd(), "frontend/dist")));
+   const frontendPath = path.join(process.cwd(), "frontend/dist");
+  
+  app.use(express.static(frontendPath));
   
   // Handle all GET requests that aren't for the API
- app.get(/(.*)/, (req, res, next) => {
+ app.get(/(.*)/, (req: Request, res: Response, next: NextFunction) => {
   // Skip API routes
   if (req.path.startsWith("/api")) {
     return next();
   }
   console.log("Serving index.html for route:", req.url);
-  res.sendFile(path.resolve(process.cwd(), "frontend/dist/index.html"));
+  res.sendFile(path.join(frontendPath, "index.html"));
 });
 } else {
   // In development
-  app.get("/", (req, res) => {
+  app.get("/", (req: Request, res: Response) => {
     res.json({ message: "Server is running in development mode" });
   });
 }
 
 // Handle undefined API routes
-app.use("/api/:unmatchedRoute", (req, res) => {
+app.use("/api/:unmatchedRoute", (req: Request, res: Response) => {
   res.status(404).json({ 
     error: `API route not found: /api/${req.params.unmatchedRoute}` 
   });
